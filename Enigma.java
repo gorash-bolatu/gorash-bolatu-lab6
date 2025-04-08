@@ -23,10 +23,22 @@ public class Enigma{
         //TODO
     }
 
-
+    private char encrypt_char(char inner_char) {
+        int inner_index = rotors[0].indexOf(inner_char);
+        char outer_char = rotors[2].charAt(inner_index);
+        int middle_index = rotors[1].indexOf(outer_char);
+        outer_char = rotors[2].charAt(middle_index);
+        this.rotate();
+        return outer_char;
+    }
     
     public String encrypt(String message){
-        //TODO
+        StringBuilder newmessage = new StringBuilder();
+        for (int i = 0; i < message.length(); i++) {
+            char ch = message.charAt(i);
+            newmessage.append(encrypt_char(ch));
+        }
+        return newmessage.toString();
     }
 
     
