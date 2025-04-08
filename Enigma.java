@@ -18,9 +18,22 @@ public class Enigma{
         
     }
 
+    public char decrypt_char(char outer_char) {
+        int outer_index = rotors[2].indexOf(outer_char);
+        char middle_char = rotors[1].charAt(outer_index);
+        outer_index = rotors[2].indexOf(middle_char);
+        char inner_char = rotors[0].charAt(outer_index);
+        this.rotate();
+        return inner_char;
+    }
 
     public String decrypt(String message){        
-        //TODO
+        StringBuilder decrypted = new StringBuilder();
+        for (int i = 0; i < message.length(); i++) {
+            char ch = message.charAt(i);
+            decrypted.append(decrypt_char(ch));
+        }
+        return decrypted.toString();
     }
 
     private char encrypt_char(char inner_char) {
@@ -33,12 +46,12 @@ public class Enigma{
     }
     
     public String encrypt(String message){
-        StringBuilder newmessage = new StringBuilder();
+        StringBuilder encrypted = new StringBuilder();
         for (int i = 0; i < message.length(); i++) {
             char ch = message.charAt(i);
-            newmessage.append(encrypt_char(ch));
+            encrypted.append(encrypt_char(ch));
         }
-        return newmessage.toString();
+        return encrypted.toString();
     }
 
     
